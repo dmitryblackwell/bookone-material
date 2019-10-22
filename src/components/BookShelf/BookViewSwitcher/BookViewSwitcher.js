@@ -14,7 +14,7 @@ import Radio from '@material-ui/core/Radio';
  */
 
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
     RadioGroup: {
         float: 'center',
         display: 'block',
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     FormControlLabel: {
         marginRight: 10
     },
-}));
+});
 
 const BookViewSwitcher = props => {
     const classes = useStyles();
@@ -38,7 +38,7 @@ const BookViewSwitcher = props => {
                 value="card"
                 control={<Radio color="primary" />}
                 label="card"
-                labelPlacement="start"
+                labelPlacement="end"
                 />
             <FormControlLabel
                 value="inline"

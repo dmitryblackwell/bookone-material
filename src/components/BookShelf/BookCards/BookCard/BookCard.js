@@ -14,7 +14,7 @@ import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutli
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 200,
+    maxWidth: 190,
     display: 'inline-block',
     margin: '1rem',
     position: 'relative',

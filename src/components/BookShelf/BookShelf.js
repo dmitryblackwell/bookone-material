@@ -5,14 +5,15 @@ import BookCards from './BookCards/BookCards';
 import BookTable from './BookTable/BookTable';
 import BookViewSwitcher from './BookViewSwitcher/BookViewSwitcher';
 import GenreSelect from './GenreSelect/GenreSelect';
-import Grid from '@material-ui/core/Grid';
-
+import BookViewModal from './BookViewModal/BookViewModal';
+import axios from 'axios';
 /*
  * BookShelf React function.
  *
  * @author [Dmitry Blackwell](https://github.com/dmitryblackwell)
  * @since  22.10.2019
  */
+
 
 const BookShelf = props => {
     
@@ -23,8 +24,7 @@ const BookShelf = props => {
             {name: 'Something Gained', author: 'Deb Purdy'},
             {name: 'Something Gained', author: 'Deb Purdy'},
         ]);
-
-    const [booksDisplay, setBooksDisplay] = useState('inline');
+    const [booksDisplay, setBooksDisplay] = useState('card');
 
     const handleViewChange = event => {
         setBooksDisplay(event.target.value);
@@ -36,23 +36,15 @@ const BookShelf = props => {
     } else if (booksDisplay === 'card') {
         books = <BookCards books={booksState} />;
     }
-    const value = 0;
-    return (
-        <div>
-            <BookViewSwitcher
-                display={booksDisplay}
-                switch={handleViewChange} />
 
-            <Grid container spacing={3}>
-                <Grid item xs={2}>     
-                    <GenreSelect />
-                </Grid>
-                <Grid item xs={10}>
-                    
+    /// this is fucking stateful component~!
+
+    
+    return (
+        <GenreSelect>
             {books}
-                </Grid>
-            </Grid>
-        </div>
+            <BookViewModal />
+        </GenreSelect>
     );
 };
 
