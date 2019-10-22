@@ -4,6 +4,8 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import BookCards from './BookCards/BookCards';
 import BookTable from './BookTable/BookTable';
 import BookViewSwitcher from './BookViewSwitcher/BookViewSwitcher';
+import GenreSelect from './GenreSelect/GenreSelect';
+import Grid from '@material-ui/core/Grid';
 
 /*
  * BookShelf React function.
@@ -39,9 +41,17 @@ const BookShelf = props => {
         <div>
             <BookViewSwitcher
                 display={booksDisplay}
-                
                 switch={handleViewChange} />
+
+            <Grid container spacing={3}>
+                <Grid item xs={2}>     
+                    <GenreSelect />
+                </Grid>
+                <Grid item xs={10}>
+                    
             {books}
+                </Grid>
+            </Grid>
         </div>
     );
 };
