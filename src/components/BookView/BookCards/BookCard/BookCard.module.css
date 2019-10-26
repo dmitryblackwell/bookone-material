@@ -1,0 +1,23 @@
+.Card {
+    display: inline-block;
+    margin: 1rem;
+    position: relative;
+    max-width: 200px;
+}
+.Media {
+    width: 200px;
+    height: 250px;
+}
+
+ .BookName {
+     font-size: 12pt;
+     word-wrap: normal;
+ }
+
+ .CardContent {
+     padding: 0 !important;
+     max-height: 50px;
+ }
+ .ActionBtn {
+     float: right;
+ }

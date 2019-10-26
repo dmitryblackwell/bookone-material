@@ -1,16 +1,14 @@
 import React from 'react';
 import './App.css';
-
-import '../../components/BookShelf/BookShelf';
-import BookShelf from '../../components/BookShelf/BookShelf';
-import Container from '@material-ui/core/Container';
-import TopMenu from '../../components/navigation/TopMenu/TopMenu';
+import BookShelf from '../BookShelf/BookShelf';
+import AppBar from '../../components/navigation/AppBar/AppBar';
+import { Container } from '@material-ui/core';
 
 function App() {
   return (
     <div className="App">
-      <TopMenu />
-      <Container >
+      <AppBar />
+      <Container style={{marginTop: 20}}>
         <BookShelf />
       </Container>
     </div>

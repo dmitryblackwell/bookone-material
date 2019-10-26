@@ -6,8 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-import img from '../../../assets/SomethingGained.jpg';
-import { Avatar } from '@material-ui/core';
+import axios from '../../../utils/axios';
+import AddShoppingCartOutlinedIcon from "@material-ui/icons/AddShoppingCartOutlined";
 
 /*
  * BookViewModal React function.
@@ -21,43 +21,36 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const AlertDialogSlide = props => {
-  const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  let name = "";
+  let description, img;
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  if (props.book) {
+    name = props.book.name;
+    description = props.book.description;
+    img = axios.defaults.baseURL + "/media/book/" + props.book.isbn;
+  }
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Slide in alert dialog
-      </Button>
       <Dialog
-        open={open}
+        open={props.open}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
+        onClose={props.handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">{"props.name"}</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">{name}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <img src={img} style={{width: '30%', float: 'left', marginRight: 30}} />
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
+            <img src={img} alt={name} style={{width: '30%', float: 'left', marginRight: 30}} />
+            {description}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Disagree
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Agree
+          <Button onClick={props.handleClose} color="primary">
+            <AddShoppingCartOutlinedIcon />
           </Button>
         </DialogActions>
       </Dialog>
