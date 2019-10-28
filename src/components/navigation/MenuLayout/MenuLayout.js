@@ -12,10 +12,14 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-
 import Toolbar from "./Toolbar";
+
+import MenuBookOutlinedIcon from "@material-ui/icons/MenuBookOutlined";
+import RateReviewOutlinedIcon from "@material-ui/icons/RateReviewOutlined";
+import HeadsetOutlinedIcon from "@material-ui/icons/HeadsetOutlined";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
 
 const drawerWidth = 240;
 
@@ -136,30 +140,48 @@ export default function MiniDrawer(props) {
         </div>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button>
+            <ListItemIcon>
+              <AccountCircle />
+            </ListItemIcon>
+            <ListItemText primary={"my account"} />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <MenuBookOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary={"books"} />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <RateReviewOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary={"reviews"} />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <HeadsetOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary={"podcasts"} />
+          </ListItem>
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button>
+            <ListItemIcon>
+              <CreateOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary={"management"} />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <AssignmentOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary={"orders"} />
+          </ListItem>
         </List>
       </Drawer>
-      <main className={classes.content}>
-        {props.children}
-      </main>
+      <main className={classes.content}>{props.children}</main>
     </div>
   );
 }
