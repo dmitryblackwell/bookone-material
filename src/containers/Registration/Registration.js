@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import Container from "@material-ui/core/Container";
-import Stepper from "../../components/UI/Stepper/Stepper";
 import Input from "@material-ui/core/Input";
-
 import Paper from "@material-ui/core/Paper";
+
+
+import Stepper from "../../components/UI/Stepper/Stepper";
 import PhoneInput from "../../components/UI/PhoneInput/PhoneInput";
 import classes from "./Registration.module.css";
+import * as actionTypes from '../../store/actions';
 
 /*
  * Registration React class.
@@ -15,16 +18,21 @@ import classes from "./Registration.module.css";
  */
 
 class Registration extends Component {
-  state = {
-    userData: {}
+  handleChange = (name, event) => {
+    this.props.setUserData(name, event.target.value);
   };
 
-  handleChange = (name, event) => {
-    this.setState({
-      userData: {
-        [name]: event.target.value
-      }
-    });
+  RegInput = props => {
+    return (
+      <Input
+        className={classes.input}
+        type={props.type ? props.type : 'text'}
+        placeholder={props.id}
+        inputProps={{ "aria-label": "description" }}
+        value={props.value}
+        onChange={event => this.handleChange(props.id, event)}
+      />
+    );
   };
 
   render() {
@@ -32,36 +40,15 @@ class Registration extends Component {
     const email = (
       <Paper className={classes.inputBlock}>
         <div>
-          <Input
-            className={classes.input}
-            type="email"
-            placeholder="email"
-            inputProps={{ "aria-label": "description" }}
-            value={this.state.userData.email}
-            onChange={event => this.handleChange("email", event)}
-          />
-          <Input
-            className={classes.input}
-            type="password"
-            placeholder="password"
-            inputProps={{ "aria-label": "description" }}
-            value={this.state.userData.password}
-            onChange={event => this.handleChange("password", event)}
-          />
+          <this.RegInput id="email" value={this.props.email} />
+          <this.RegInput id="password" value={this.props.password} />
         </div>
       </Paper>
     );
     const username = (
       <Paper className={classes.inputBlock}>
         <div>
-          <Input
-            className={classes.input}
-            type="text"
-            placeholder="username"
-            inputProps={{ "aria-label": "description" }}
-            value={this.state.userData.username}
-            onChange={event => this.handleChange("username", event)}
-          />
+          <this.RegInput id="username" value={this.props.username} />
         </div>
       </Paper>
     );
@@ -69,7 +56,7 @@ class Registration extends Component {
       <Paper className={classes.inputBlock}>
         <PhoneInput
           className={classes.input}
-          phone={this.state.userData.phone}
+          phone={this.props.phone}
           onChange={e => this.handleChange("phone", e)}
         />
       </Paper>
@@ -77,38 +64,10 @@ class Registration extends Component {
     const address = (
       <Paper className={classes.inputBlock}>
         <div>
-          <Input
-            className={classes.input}
-            type="text"
-            placeholder="city"
-            inputProps={{ "aria-label": "description" }}
-            value={this.state.userData.city}
-            onChange={event => this.handleChange("city", event)}
-          />
-          <Input
-            className={classes.input}
-            type="text"
-            placeholder="street"
-            inputProps={{ "aria-label": "description" }}
-            value={this.state.userData.street}
-            onChange={event => this.handleChange("street", event)}
-          />
-          <Input
-            className={classes.input}
-            type="text"
-            placeholder="house"
-            inputProps={{ "aria-label": "description" }}
-            value={this.state.userData.house}
-            onChange={event => this.handleChange("house", event)}
-          />
-          <Input
-            className={classes.input}
-            type="number"
-            placeholder="apartment"
-            inputProps={{ "aria-label": "description" }}
-            value={this.state.userData.apartment}
-            onChange={event => this.handleChange("apartment", event)}
-          />
+          <this.RegInput id="city" value={this.props.city} />
+          <this.RegInput id="street" value={this.props.street} />
+          <this.RegInput id="house" value={this.props.house} />
+          <this.RegInput id="apartment" value={this.props.apartment} />
         </div>
       </Paper>
     );
@@ -121,4 +80,16 @@ class Registration extends Component {
   }
 }
 
-export default Registration;
+const mapStateToProps = state => {
+  return {
+    ...state.user
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setUserData: (id, value) => dispatch({type: actionTypes.REGISTRATION_USER_DATA_CHANGED, id: id, value: value})
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Registration);

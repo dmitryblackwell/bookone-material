@@ -1,5 +1,7 @@
 import React from "react";
 import clsx from "clsx";
+import { NavLink } from "react-router-dom";
+
 import { useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -12,6 +14,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+
 import Toolbar from "./Toolbar/Toolbar";
 import { useStyles } from "./MenuLayout.style";
 
@@ -45,20 +48,20 @@ export default function MiniDrawer(props) {
   const adminLayoutData = [
     { name: "management", link: "/management", icon: <CreateOutlinedIcon /> },
     { name: "orders", link: "/orders", icon: <AssignmentOutlinedIcon /> }
-  ]
+  ];
 
-  const getLayoutList = (layoutData) => {
+  const getLayoutList = layoutData => {
     return layoutData.map(layout => {
       return (
-        <ListItem button>
-          <ListItemIcon>
-            {layout.icon}
-          </ListItemIcon>
-          <ListItemText primary={layout.name} />
-        </ListItem>
+        <NavLink activeClassName={classes.activeNavLink} key={layout.link} to={layout.link} className={classes.navLink}>
+          <ListItem button>
+            <ListItemIcon>{layout.icon}</ListItemIcon>
+            <ListItemText primary={layout.name} />
+          </ListItem>
+        </NavLink>
       );
     });
-  }
+  };
 
   const userLayoutListItems = getLayoutList(userLayoutData);
   const adminLayoutListItems = getLayoutList(adminLayoutData);
@@ -103,13 +106,9 @@ export default function MiniDrawer(props) {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {userLayoutListItems}
-        </List>
+        <List>{userLayoutListItems}</List>
         <Divider />
-        <List>
-          {adminLayoutListItems}
-        </List>
+        <List>{adminLayoutListItems}</List>
       </Drawer>
       <main className={classes.content}>{props.children}</main>
     </div>

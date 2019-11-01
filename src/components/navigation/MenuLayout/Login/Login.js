@@ -3,6 +3,7 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import TextField from "@material-ui/core/TextField";
+import { Link } from "react-router-dom";
 
 const StyledMenu = withStyles({
   paper: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     margin: theme.spacing(1),
-    float: 'right'
+    float: "right"
   },
   MenuContent: {
     padding: theme.spacing(3),
@@ -73,27 +74,32 @@ export default function CustomizedMenus() {
         onClose={handleClose}
       >
         <div className={classes.MenuContent}>
-        <TextField
-          id="standard-username-input"
-          label="username"
-          className={classes.textField}
-          type="text"
-          autoComplete="current-password"
-          margin="normal"
-        />
-        <br />
-        <TextField
-          id="standard-password-input"
-          label="Password"
-          className={classes.textField}
-          type="password"
-          autoComplete="current-password"
-          margin="normal"
-        />
-        <br />
-        <Button variant="outlined" color="primary" className={classes.button}>
-          login
-        </Button>
+          <TextField
+            id="standard-username-input"
+            label="username"
+            className={classes.textField}
+            type="text"
+            autoComplete="current-password"
+            margin="normal"
+          />
+          <br />
+          <TextField
+            id="standard-password-input"
+            label="Password"
+            className={classes.textField}
+            type="password"
+            autoComplete="current-password"
+            margin="normal"
+          />
+          <br />
+          <Button variant="outlined" color="primary" className={classes.button}>
+            sign in
+          </Button>
+          <Link to="/registration">
+            <Button color="secondary" className={classes.button}>
+              sign up
+            </Button>
+          </Link>
         </div>
       </StyledMenu>
     </div>

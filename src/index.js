@@ -8,9 +8,11 @@ import App from './containers/App/App';
 import * as serviceWorker from './serviceWorker';
 
 import booksReducer from './store/reducers/booksReducer';
+import userReducer from './store/reducers/userReducer';
 
 const rootReducer = combineReducers({
-    books: booksReducer
+    books: booksReducer,
+    user: userReducer
 });
 const store = createStore(rootReducer);
 
