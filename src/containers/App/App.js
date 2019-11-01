@@ -3,6 +3,7 @@ import "./App.css";
 import BookShelf from "../BookShelf/BookShelf";
 import MenuLayout from "../../components/navigation/MenuLayout/MenuLayout";
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Registration from '../Registration/Registration';
 
 const theme = createMuiTheme({
   palette: {
@@ -27,7 +28,8 @@ function App() {
       <MuiThemeProvider theme={theme}>
         <MenuLayout>
           <BookShelf />
-        </MenuLayout>
+          {/* <Registration /> */}
+        </MenuLayout>        
       </MuiThemeProvider>
   );
 }

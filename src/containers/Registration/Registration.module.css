@@ -1,0 +1,11 @@
+.input {
+    display: block !important;
+    margin: 20px 50 20px 50px;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.inputBlock {
+    margin: 50px;
+    padding: 40px;
+}

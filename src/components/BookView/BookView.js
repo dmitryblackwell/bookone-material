@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import BookSelection from "./BookSelection/BookSelection";
 import axios from "../../utils/axios";
 import BookModal from "./BookModal/BookModal";
+import * as actionTypes from "../../store/actions";
 
 /*
  * BookView React class.
@@ -13,14 +16,13 @@ import BookModal from "./BookModal/BookModal";
 class BookView extends Component {
   state = {
     openBook: null,
-    currentGenre: "sci-fi",
-    books: null
+    currentGenre: "sci-fi"
   };
 
   GenreChangeHandler = (event, newGenre) => {
-    if (this.state.books) {
+    if (this.props.books) {
       this.setState({
-        currentGenre: Object.keys(this.state.books)[newGenre]
+        currentGenre: Object.keys(this.props.books)[newGenre]
       });
     }
   };
@@ -28,27 +30,37 @@ class BookView extends Component {
   OpenBookHandler = book => {
     this.setState({ openBook: book });
   };
+
   CloseBookHandler = () => {
     this.setState({ openBook: null });
   };
 
-  render() {
-    if (!this.state.books) {
+  loadBooksGenres = () => {
+    if (!this.props.books) {
       axios.get("/genre").then(response => {
         let newBooks = [];
         response.data.forEach(genre => {
           newBooks[genre.name] = null;
         });
-        this.setState({ books: newBooks });
+        this.props.setLoadedBooksGenres(newBooks);
       });
     }
-    if (this.state.books && !this.state.books[this.state.currentGenre]) {
+  };
+
+  loadBooksByGenre = () => {
+    if (this.props.books && !this.props.books[this.state.currentGenre]) {
       axios.get("/book/genre/" + this.state.currentGenre).then(response => {
-        let newBooks = { ...this.state.books };
-        newBooks[this.state.currentGenre] = response.data;
-        this.setState({ books: newBooks });
+        this.props.setLoadedBooksByGenre(
+          response.data,
+          this.state.currentGenre
+        );
       });
     }
+  };
+
+  render() {
+    this.loadBooksGenres();
+    this.loadBooksByGenre();
 
     const isModalOpen = this.state.openBook != null;
     return (
@@ -56,13 +68,39 @@ class BookView extends Component {
         <BookSelection
           openBook={this.OpenBookHandler}
           genre={this.state.currentGenre}
-          books={this.state.books}
+          books={this.props.books}
           change={this.GenreChangeHandler}
         />
-        <BookModal open={isModalOpen} book={this.state.openBook} handleClose={this.CloseBookHandler} />
+        <BookModal
+          open={isModalOpen}
+          book={this.state.openBook}
+          handleClose={this.CloseBookHandler}
+        />
       </div>
     );
   }
 }
 
-export default BookView;
+const mapStateToProps = state => {
+  return {
+    books: state.books.books
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setLoadedBooksGenres: books =>
+      dispatch({ type: actionTypes.SET_LOADED_BOOKS_GENRES, books: books }),
+    setLoadedBooksByGenre: (books, genre) =>
+      dispatch({
+        type: actionTypes.SET_LOADED_BOOKS_BY_GENRE,
+        books: books,
+        genre: genre
+      })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BookView);

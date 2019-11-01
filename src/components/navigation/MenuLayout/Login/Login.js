@@ -27,8 +27,7 @@ const StyledMenu = withStyles({
 const useStyles = makeStyles(theme => ({
   textField: {
     marginLeft: theme.spacing(1),
-    marginTop: theme.spacing(0),
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
     marginRight: theme.spacing(1),
     width: 300
   },
@@ -36,6 +35,10 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     float: 'right'
   },
+  MenuContent: {
+    padding: theme.spacing(3),
+    paddingTop: theme.spacing(0)
+  }
 }));
 
 export default function CustomizedMenus() {
@@ -69,6 +72,7 @@ export default function CustomizedMenus() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <div className={classes.MenuContent}>
         <TextField
           id="standard-username-input"
           label="username"
@@ -88,8 +92,9 @@ export default function CustomizedMenus() {
         />
         <br />
         <Button variant="outlined" color="primary" className={classes.button}>
-          Primary
+          login
         </Button>
+        </div>
       </StyledMenu>
     </div>
   );
