@@ -11,7 +11,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import Login from '../Login/Login';
+import Login from '../Auth/Auth';
 
 import { useStyles } from './Toolbar.style';
 

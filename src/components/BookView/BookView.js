@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import BookSelection from "./BookSelection/BookSelection";
 import axios from "../../utils/axios";
 import BookModal from "./BookModal/BookModal";
-import * as actionTypes from "../../store/actions";
+import * as actionTypes from "../../store/actions/actionTypes";
 
 /*
  * BookView React class.

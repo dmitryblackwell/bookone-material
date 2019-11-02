@@ -1,50 +1,30 @@
-import React from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import TextField from "@material-ui/core/TextField";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
-const StyledMenu = withStyles({
-  paper: {
-    border: "1px solid #d3d4d5"
-  }
-})(props => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "center"
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center"
-    }}
-    {...props}
-  />
-));
 
-const useStyles = makeStyles(theme => ({
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    marginRight: theme.spacing(1),
-    width: 300
-  },
-  button: {
-    margin: theme.spacing(1),
-    float: "right"
-  },
-  MenuContent: {
-    padding: theme.spacing(3),
-    paddingTop: theme.spacing(0)
-  }
-}));
+import { StyledMenu, useStyles } from './Auth.style';
+import * as actions from '../../../../store/actions/actions';
 
-export default function CustomizedMenus() {
+function Auth() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const [authData, setAuthData] = useState({email: '', password: ''});
+
+  const onChangeHandler = (id, event) => {
+    setAuthData({
+      ...authData,
+      [id]: event.target.value
+    });
+  }
+
+  const submitHandler = () => {
+    console.log(authData);
+    actions.auth(authData);
+  }
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -76,11 +56,11 @@ export default function CustomizedMenus() {
         <div className={classes.MenuContent}>
           <TextField
             id="standard-username-input"
-            label="username"
+            label="email"
             className={classes.textField}
             type="text"
-            autoComplete="current-password"
             margin="normal"
+            onChange={(e) => onChangeHandler('email', e)}
           />
           <br />
           <TextField
@@ -88,16 +68,16 @@ export default function CustomizedMenus() {
             label="Password"
             className={classes.textField}
             type="password"
-            autoComplete="current-password"
             margin="normal"
+            onChange={(e) => onChangeHandler('password', e)}
           />
           <br />
-          <Button variant="outlined" color="primary" className={classes.button}>
-            sign in
+          <Button onClick={submitHandler} variant="outlined" color="secondary" className={classes.button}>
+            Log In
           </Button>
           <Link to="/registration">
-            <Button color="secondary" className={classes.button}>
-              sign up
+            <Button color="primary" onClick={handleClose} className={classes.button}>
+              registration
             </Button>
           </Link>
         </div>
@@ -105,3 +85,11 @@ export default function CustomizedMenus() {
     </div>
   );
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (email, password) => dispatch(actions.auth(email, password))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Auth);

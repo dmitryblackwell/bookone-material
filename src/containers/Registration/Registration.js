@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Stepper from "../../components/UI/Stepper/Stepper";
 import PhoneInput from "../../components/UI/PhoneInput/PhoneInput";
 import classes from "./Registration.module.css";
-import * as actionTypes from '../../store/actions';
+import * as actionTypes from '../../store/actions/actionTypes';
 
 /*
  * Registration React class.
